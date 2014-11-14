@@ -18,6 +18,7 @@
 
 from __future__ import unicode_literals
 
+import gettext
 import logging
 import time
 
@@ -26,11 +27,29 @@ from jinja2 import Environment, PackageLoader
 import rdw_helpers
 
 # Load all the templates from /templates directory
-jinja_env = Environment(loader=PackageLoader(
-    'rdiffweb', 'templates'), auto_reload=True, autoescape=True)
+jinja_env = Environment(loader=PackageLoader('rdiffweb', 'templates'),
+                        auto_reload=True,
+                        autoescape=True,
+                        extensions=['jinja2.ext.i18n'])
 
 # Define the logger
 logger = logging.getLogger(__name__)
+
+
+class JinjaTranslations():
+
+    def __init__(self):
+        self.t = gettext.translation('messages',
+                                     '/usr/local/lib/python2.7/dist-packages/rdiffweb-0.6.5-py2.7.egg/rdiffweb/locales/',
+                                     languages=['fr'],
+                                     fallback=False)
+
+    def gettext(self, message):
+        logger.info("COUCOU")
+        return self.t.ugettext(message)
+
+    def ngettext(self, singular, plural, number):
+        return self.t.ungettext(singular, plural, number)
 
 
 def compileTemplate(templateName, **kwargs):
@@ -41,9 +60,14 @@ def compileTemplate(templateName, **kwargs):
             The arguments to be passed to the template.
     """
     logger.debug("compiling template [%s]" % templateName)
+
+    jinja_env.install_gettext_translations(JinjaTranslations(), newstyle=True)
+
     template = jinja_env.get_template(templateName)
     data = template.render(kwargs)
     logger.debug("template [%s] compiled" % templateName)
+    logger.info("coucou")
+    logger.info(type(data))
     return data
 
 

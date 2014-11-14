@@ -113,6 +113,7 @@ def start():
         environment = "production"
     global_settings = {
         'tools.encode.on': True,
+        'tools.encode.debug': True,
         'tools.encode.encoding': 'utf-8',
         'tools.gzip.on': True,
         'tools.sessions.on': True,

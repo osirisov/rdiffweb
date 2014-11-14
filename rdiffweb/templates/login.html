@@ -2,14 +2,12 @@
 <div class='container'>
     <div class='content'>
         <center>
-            <h1>rdiffweb</h1>
+            <h1>{{ _('rdiffweb') }}</h1>
             <p class='light'>
-                Originally developped by Josh Nisly, rdiffweb is a web interface
-                <br />for browsing and restoring from rdiff-backup
-                repositories.
+                Originally developped by Josh Nisly, rdiffweb is a web interface for browsing and restoring from rdiff-backup repositories.
             </p>
-            <a href="http://www.patrikdufresne.com/en/rdiffweb/">rdiffweb</a>
-            version 0.6.5
+            <a href="http://www.patrikdufresne.com/en/rdiffweb/">{{ _('rdiffweb') }}</a>
+            {{ _('version 0.6.5') }}
         </center>
     </div>
     <!-- /content -->
@@ -19,21 +17,16 @@
     <form class="form-signin" role="form" method="post" action="{{ action }}">
         <input type="hidden" name="{{ redirectKey }}"
             value="{{ redirectValue }}" />
-        <h2 class="form-signin-heading">Sign in</h2>
-        {% if message %}
-        <div class="alert alert-warning" role="alert">
-            <strong>Warning!</strong> {{ message }}
-        </div>
-        {% else %}
+        <h2 class="form-signin-heading">{{ _('Sign in') }}</h2>
+		{% include 'message.html'%}
         <p>Enter your username and password to log in.</p>
-        {% endif %}
-        <input type="text" class="form-control" placeholder="Username"
+        <input type="text" class="form-control" placeholder="{{ _('Username') }}"
             name="{{ loginKey }}" value="{{ loginValue }}" id="username"
             required autofocus>
-        <input type="password" class="form-control" placeholder="Password"
+        <input type="password" class="form-control" placeholder="{{ _('Password') }}"
             name="{{ passwordKey }}" id="password" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign
-            in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+        	{{ _('Sign in') }}</button>
     </form>
 </div>
 <!-- /login-page -->
